@@ -1,0 +1,581 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Work Calculator</title>
+    <style>
+        :root {
+            --primary-color: #2e7d32; /* Green for agriculture */
+            --bg-color: #f4f4f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .time-entry {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        label {
+            font-size: 0.8rem;
+            color: #555;
+            margin-bottom: 4px;
+        }
+
+        input[type="time"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            cursor: pointer;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-add {
+            background-color: #2196F3;
+            color: white;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .btn-calc {
+            background-color: var(--primary-color);
+            color: white;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        .btn-remove {
+            background-color: #ff5252;
+            color: white;
+            padding: 5px 10px;
+        }
+
+        #results {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px dashed #ccc;
+            display: none; /* Hidden until calculated */
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .total-cost {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🚜 Farm Machine Calculator</h2>
+    
+    <div id="entries-list">
+        </div>
+
+    <button class="btn-add" onclick="addEntry()">+ Add Time Entry</button>
+    <br><br>
+    <button class="btn-calc" onclick="calculate()">Calculate Cost</button>
+
+    <div id="results">
+        <div class="result-item">
+            <span>Total Time:</span>
+            <span id="display-time">0h 0m</span>
+        </div>
+        <div class="result-item">
+            <span>Cultivator Cost:</span>
+            <span id="cost-cultivator">0</span>
+        </div>
+        <div class="result-item">
+            <span>Rotavator Cost:</span>
+            <span id="cost-rotavator">0</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize with one entry
+    addEntry();
+
+    function addEntry() {
+        const container = document.getElementById('entries-list');
+        const count = container.children.length + 1;
+        
+        const div = document.createElement('div');
+        div.className = 'time-entry';
+        div.innerHTML = `
+            <div class="input-group">
+                <label>Start Time</label>
+                <input type="time" class="start-time">
+            </div>
+            <div class="input-group">
+                <label>End Time</label>
+                <input type="time" class="end-time">
+            </div>
+            ${count > 1 ? '<button class="btn-remove" onclick="this.parentElement.remove()">X</button>' : ''}
+        `;
+        container.appendChild(div);
+    }
+
+    function calculate() {
+        const starts = document.querySelectorAll('.start-time');
+        const ends = document.querySelectorAll('.end-time');
+        let totalMinutes = 0;
+
+        for (let i = 0; i < starts.length; i++) {
+            const startVal = starts[i].value;
+            const endVal = ends[i].value;
+
+            if (startVal && endVal) {
+                // Convert "HH:MM" to minutes
+                const startMin = parseTime(startVal);
+                const endMin = parseTime(endVal);
+
+                let diff = endMin - startMin;
+                
+                // Handle cases where work goes past midnight (e.g., 11 PM to 1 AM)
+                if (diff < 0) {
+                    diff += 24 * 60; 
+                }
+                
+                totalMinutes += diff;
+            }
+        }
+
+        // Logic from your Python Script
+        // Cultivator: sum * (500/60)
+        // Rotavator: sum * 10
+        const cultivatorCost = Math.floor(totalMinutes * (500/60));
+        const rotavatorCost = Math.floor(totalMinutes * 10);
+
+        // Display Time
+        const hours = Math.floor(totalMinutes / 60);
+        const mins = totalMinutes % 60;
+
+        document.getElementById('display-time').innerText = `${hours} hour, ${mins} minutes`;
+        document.getElementById('cost-cultivator').innerText = `₹ ${cultivatorCost}`;
+        document.getElementById('cost-rotavator').innerText = `₹ ${rotavatorCost}`;
+        
+        document.getElementById('results').style.display = 'block';
+    }
+
+    function parseTime(timeStr) {
+        const [hours, minutes] = timeStr.split(':').map(Number);
+        return (hours * 60) + minutes;
+    }
+</script>
+
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Cost Calculator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --accent: #FFC107;
+            --bg-gradient: linear-gradient(135deg, #e0f2f1 0%, #a5d6a7 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .app-container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 480px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            margin-top: 0;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        /* Time Entry Row Styles */
+        .entry-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-left: 5px solid var(--primary);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .time-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .time-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            width: 50px;
+        }
+
+        .selectors {
+            display: flex;
+            gap: 5px;
+            flex: 1;
+        }
+
+        select {
+            padding: 8px 4px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #f9f9f9;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            outline: none;
+        }
+
+        select:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: none;
+            border: none;
+            color: #ff5252;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        /* Main Buttons */
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button.main-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        button.main-btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-add {
+            background-color: #E0E0E0;
+            color: #333;
+        }
+
+        .btn-calc {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Results Section */
+        #results-area {
+            display: none;
+            margin-top: 25px;
+            background: #263238;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .res-label {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .res-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        .total-time-display {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <h1>🚜 Farm Calculator</h1>
+    <p class="subtitle">Calculate Cultivator & Rotavator Costs</p>
+
+    <div id="entries-container">
+        </div>
+
+    <div class="btn-container">
+        <button class="main-btn btn-add" onclick="addNewRow()">+ Add Time</button>
+        <button class="main-btn btn-calc" onclick="calculateTotal()">Calculate 💰</button>
+    </div>
+
+    <div id="results-area">
+        <div class="total-time-display" id="disp-total-time">0h 0m</div>
+        
+        <div class="result-row">
+            <span class="res-label">Cultivator Cost</span>
+            <span class="res-value" id="disp-cultivator">₹ 0</span>
+        </div>
+        <div class="result-row">
+            <span class="res-label">Rotavator Cost</span>
+            <span class="res-value" id="disp-rotavator">₹ 0</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Helper to generate Hour Options
+    function getHourOptions() {
+        let opts = '';
+        for(let i=1; i<=12; i++) opts += `<option value="${i}">${i}</option>`;
+        return opts;
+    }
+
+    // Helper to generate Minute Options (00, 05, 10...)
+    function getMinOptions() {
+        let opts = '';
+        for(let i=0; i<60; i+=1) { // 1 minute increments
+            let val = i < 10 ? '0'+i : i;
+            opts += `<option value="${i}">${val}</option>`;
+        }
+        return opts;
+    }
+
+    function addNewRow() {
+        const container = document.getElementById('entries-container');
+        const div = document.createElement('div');
+        div.className = 'entry-card';
+        
+        // HTML for Start Time Dropdowns
+        const startHTML = `
+            <div class="time-group">
+                <span class="time-label">Start</span>
+                <div class="selectors">
+                    <select class="s-hr">${getHourOptions()}</select>
+                    <select class="s-min">${getMinOptions()}</select>
+                    <select class="s-ampm">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+            </div>`;
+
+        // HTML for End Time Dropdowns
+        const endHTML = `
+            <div class="time-group">
+                <span class="time-label">End</span>
+                <div class="selectors">
+                    <select class="e-hr">${getHourOptions()}</select>
+                    <select class="e-min">${getMinOptions()}</select>
+                    <select class="e-ampm">
+                        <option value="AM">AM</option>
+                        <option value="PM" selected>PM</option>
+                    </select>
+                </div>
+            </div>`;
+
+        div.innerHTML = `<button class="btn-remove" onclick="removeRow(this)">×</button>` + startHTML + endHTML;
+        container.appendChild(div);
+    }
+
+    function removeRow(btn) {
+        const container = document.getElementById('entries-container');
+        if(container.children.length > 1) {
+            btn.parentElement.remove();
+        } else {
+            alert("You need at least one entry!");
+        }
+    }
+
+    // Convert 12h format to minutes from midnight (0 - 1439)
+    function convertToMinutes(hr, min, period) {
+        hr = parseInt(hr);
+        min = parseInt(min);
+        
+        if (period === 'PM' && hr !== 12) {
+            hr += 12;
+        }
+        if (period === 'AM' && hr === 12) {
+            hr = 0;
+        }
+        return (hr * 60) + min;
+    }
+
+    function calculateTotal() {
+        const entries = document.querySelectorAll('.entry-card');
+        let totalWorkMinutes = 0;
+
+        entries.forEach(card => {
+            // Get Start Values
+            const sHr = card.querySelector('.s-hr').value;
+            const sMin = card.querySelector('.s-min').value;
+            const sAmPm = card.querySelector('.s-ampm').value;
+
+            // Get End Values
+            const eHr = card.querySelector('.e-hr').value;
+            const eMin = card.querySelector('.e-min').value;
+            const eAmPm = card.querySelector('.e-ampm').value;
+
+            const startTotal = convertToMinutes(sHr, sMin, sAmPm);
+            const endTotal = convertToMinutes(eHr, eMin, eAmPm);
+
+            let diff = endTotal - startTotal;
+
+            // Handle midnight crossing (e.g. 10 PM to 2 AM)
+            if (diff < 0) {
+                diff += (24 * 60);
+            }
+
+            totalWorkMinutes += diff;
+        });
+
+        // Math Logic
+        const cultivatorPrice = Math.floor(totalWorkMinutes * (500/60));
+        const rotavatorPrice = Math.floor(totalWorkMinutes * 10);
+
+        // Display Formatting
+        const hours = Math.floor(totalWorkMinutes / 60);
+        const mins = totalWorkMinutes % 60;
+
+        document.getElementById('disp-total-time').innerText = `⏱ ${hours} hr ${mins} min`;
+        document.getElementById('disp-cultivator').innerText = `₹ ${cultivatorPrice}`;
+        document.getElementById('disp-rotavator').innerText = `₹ ${rotavatorPrice}`;
+
+        // Show Results
+        document.getElementById('results-area').style.display = 'block';
+        
+        // Scroll to results
+        document.getElementById('results-area').scrollIntoView({behavior: "smooth"});
+    }
+
+    // Initialize with 1 row
+    addNewRow();
+</script>
+
+</body>
+</html>
